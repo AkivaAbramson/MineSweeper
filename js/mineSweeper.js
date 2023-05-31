@@ -9,6 +9,8 @@ function onInit() {
     //console.log('hi')
     gBoard = buildBoard(5)
     renderBoard(gBoard)
+    //expandShown(0,0)
+   //countNegsExpand(gBoard,0,0)
     
 }
 
@@ -70,6 +72,9 @@ function onCellClicked(i, j) {
     elCell.style.backgroundColor = 'gray'
     gBoard[i][j].isShown = true
     gCount++
+    if(gBoard[i][j].content !== '*'){
+        expandShown(i,j)
+    }
     if(gBoard[i][j].content === '*'){
         alert('you lose!')
     }
@@ -102,6 +107,18 @@ function onCellMarked(ev, i, j) {
 function checkGameOver(){
     if(gCount === (5**2)-8){
         alert('you won!')
+    }
+
+}
+
+function expandShown(i,j){
+    var negsExpand = countNegsExpand(gBoard, i,j)
+    var copyNegsExpand = countNegsExpand(gBoard, i,j) //to pop and not change length of arr
+    console.log(negsExpand)
+    for(var i = 0; i<negsExpand.length;i++){
+        var currNeg = negsExpand.pop()
+        onCellClicked(currNeg.i,currNeg.j)
+
     }
 
 
