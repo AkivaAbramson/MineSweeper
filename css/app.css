@@ -1,20 +1,84 @@
 table,
 tr,
 td {
- border: 1px solid black;
- margin: auto;
- height: 50px;
- width: 200px;
-}
-table{
-    border: 8px solid rgb(190, 18, 18);
+    border: 1px solid black;
+    margin: auto;
+    height: 50px;
+    width: 50px;
+
 }
 
-.cell{
+body {
+    text-align: center;
+}
+
+.centered-text {
+    display: inline-block;
+}
+
+
+
+table {
+    border: 8px solid rgb(190, 18, 18);
+    table-layout: fixed;
+}
+
+.cell {
     text-align: center;
     background-color: lightgray;
     cursor: pointer;
     background-color: black;
     border-radius: 3px;
+}
+
+
+
+
+.victory {
+    display: none;
+    background-color: aquamarine;
+    text-align: center;
+    border-radius: 20px;
+    margin-left: 150px;
+    margin-right: 150px;
+
+}
+
+.lose {
+    display: none;
+    background-color: aquamarine;
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 150px;
+    margin-right: 150px;
+
+}
+
+.button {
+    margin-left: 10px;
+    color: blueviolet;
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+
+.livesLeft {
     
+    color: rgb(8, 124, 86);
+    text-align: center;
+}
+
+.smileyRestart {
+    margin-left: 346px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: 50px;
+}
+
+h1{
+    color: aqua;
 }

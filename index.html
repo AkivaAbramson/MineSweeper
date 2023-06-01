@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 
-<body onload="onInit()" >
+<body onload="onInit(4)">
     <h1>MineSweeper!</h1>
+    <button class="Beginner button" onclick="playAgain(4)">Beginner</button>
+    <button class="Medium button" onclick="playAgain(8)">Medium</button>
+    <button class="Expert button" onclick="playAgain(12)">Expert</button>
+    <button class="smileyRestart" onclick="playAgain(4)">😁</button>
+    <h1 class="livesLeft">Lives Left: 3</h1>
+    <h2 class="victory">VICTORY!!</h2>
+    <h3 class="lose">you lost!!</h3>
     <table class="board-container"></table>
-
     <script src="js/utils.js"></script>
     <script src="js/mineSweeper.js"></script>
 </body>

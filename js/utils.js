@@ -17,12 +17,24 @@ function countNegs(mat, rowIdx, colIdx) {
     }
     return count
 }
-function getContent(){
+function getContent(boardSize) {
     var contentArr = []
-    for(var i = 0;i<8;i++) contentArr.push('*')
-    for(var i = 0;i<17;i++) contentArr.push('')
-   // console.log(contentArr)
+    if (boardSize === 4) {
+        for (var i = 0; i < 2; i++) contentArr.push('*')
+        for (var i = 0; i < 14; i++) contentArr.push('')
+    }
+    if (boardSize === 8) {
+        for (var i = 0; i < 14; i++) contentArr.push('*')
+        for (var i = 0; i < 50; i++) contentArr.push('')
+    }
+    if (boardSize === 12) {
+        for (var i = 0; i < 32; i++) contentArr.push('*')
+        for (var i = 0; i < 112; i++) contentArr.push('')
+    }
+    shuffleArr(contentArr)
+    //console.log(contentArr)
     return contentArr
+
 }
 
 function countNegsExpand(mat, rowIdx, colIdx) {
@@ -34,12 +46,25 @@ function countNegsExpand(mat, rowIdx, colIdx) {
             if (i === rowIdx && j === colIdx) continue
             var currCell = mat[i][j]
             if (currCell.content === '*') return
-            negs.push({'i': i, 'j':j})
+            negs.push({ 'i': i, 'j': j })
         }
     }
+
     return negs
-    console.log(negs)
-    
+    //console.log(negs)
+
 }
 
+function shuffleArr(arr) {
+    return arr.sort((a, b) => 0.5 - Math.random())
+}
 
+function findEmptyCell() {
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            if (gBoard[i][j].content === '')
+                return gBoard[i][j]
+        }
+
+    }
+}
