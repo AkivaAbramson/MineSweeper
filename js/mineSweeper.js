@@ -8,16 +8,20 @@ var gCount = 0
 var gBoardSize
 var gLives = 3
 var firstClick = true
+var interval
+var safeClickCount = 3
+var darkMode = false
 
 function onInit(boardSize) {
+
     gContent = getContent(boardSize)
     firstClick = true
-    //console.log('hi')
     gBoard = buildBoard(boardSize, gContent)
+    var defaultMines = howManyMines()
+    var elH1 = document.querySelector(".minesLeft span")
+    elH1.innerHTML = defaultMines
     renderBoard(gBoard)
-    //expandShown(0,0)
-    //countNegsExpand(gBoard,0,0)
-
+    //startTimer()
 }
 
 function buildBoard(boardSize, gContent) {
@@ -38,7 +42,6 @@ function buildBoard(boardSize, gContent) {
     }
     for (var i = 0; i < boardSize; i++) {
         for (var j = 0; j < boardSize; j++) {
-            // debugger
             var currCell = board[i][j]
             if (currCell.content === '') {
                 currCell.content = countNegs(board, i, j)
@@ -49,9 +52,6 @@ function buildBoard(boardSize, gContent) {
             }
         }
     }
-
-
-    //console.table(board)
     return board
 }
 
@@ -73,6 +73,7 @@ function renderBoard(board) {
 }
 
 function onCellClicked(i, j) {
+
     if (firstClick) {
         if (gBoard[i][j].content === '*') {
             gBoard[i][j].content = ''
@@ -80,9 +81,9 @@ function onCellClicked(i, j) {
             emptyCell.content = '*'
 
 
+
             for (var i = 0; i < gBoard.length; i++) {
                 for (var j = 0; j < gBoard.length; j++) {
-                    // debugger
                     var currCell = gBoard[i][j]
                     if (currCell.content === '*') continue
                     currCell.content = countNegs(gBoard, i, j)
@@ -93,8 +94,9 @@ function onCellClicked(i, j) {
 
                 }
             }
-            // renderBoard(gBoard)
+
         }
+        startTimer()
         firstClick = false
     }
     if (gBoard[i][j].isMarked) return
@@ -119,10 +121,6 @@ function onCellClicked(i, j) {
         expandShown(i, j)
     }
 
-
-
-    //console.log(i, j)
-
 }
 
 function onCellMarked(ev, i, j) {
@@ -133,18 +131,18 @@ function onCellMarked(ev, i, j) {
         elCell.innerHTML = gFlag
         gFlagCount++
         gBoard[i][j].isMarked = true
+        var elH1 = document.querySelector(".minesLeft span")
+        elH1.innerHTML--
         checkGameOver()
 
     } else {
         elCell.innerHTML = gBoard[i][j].content
         gBoard[i][j].isMarked = false
         gFlagCount--
+        var elH1 = document.querySelector(".minesLeft span")
+        elH1.innerHTML++
 
     }
-
-
-    //console.log(gBoard)
-    //console.log(elCell.innerHTML)
 
 }
 
@@ -156,6 +154,7 @@ function checkGameOver() {
 
     if ((gCount === ((gBoard.length) ** 2) - howManyMines) && (gFlagCount === howManyMines)) {
         victory()
+        resetTimer()
     }
 
 
@@ -212,6 +211,7 @@ function checkLose() {
         document.querySelector(".lose").style.display = 'block'
         document.querySelector(".board-container").style.display = 'none'
         //document.querySelector(".resetButton").style.display = 'block'
+        resetTimer()
 
     }
 
@@ -224,6 +224,8 @@ function renderLivesLeft() {
 }
 
 function playAgain(boardSize) {
+    var elH5 = document.querySelector(".clicksLeft span")
+    elH5.innerHTML = 3
     document.querySelector(".lose").style.display = 'none'
     document.querySelector(".victory").style.display = 'none'
     document.querySelector(".board-container").style.display = ''
@@ -232,7 +234,9 @@ function playAgain(boardSize) {
     gCount = 0
     gFlagCount = 0
     gLives = 3
+    safeClickCount = 3
 
+    resetTimer()
     renderLivesLeft()
     onInit(boardSize)
 
@@ -245,6 +249,73 @@ function wrongCell(elCell) {
 
 }
 
+function startTimer() {
+    var timerElement = document.getElementById("timer")
+    var time = 0
+
+    interval = setInterval(function () {
+        time++
+        var hours = Math.floor(time / 3600)
+        var minutes = Math.floor((time % 3600) / 60)
+        var seconds = time % 60
+
+
+        var formattedTime =
+            ("0" + hours).slice(-2) +
+            ":" +
+            ("0" + minutes).slice(-2) +
+            ":" +
+            ("0" + seconds).slice(-2)
+
+
+        timerElement.textContent = formattedTime
+    }, 1000)
+}
+function stopTimer() {
+    clearInterval(interval)
+}
+
+function resetTimer() {
+    stopTimer()
+    var time = 0
+
+}
+
+function hint() {
+    onCellClicked(i, j)
+
+}
+
+function safeClick() {
+    if (safeClickCount === 0) return
+    var safeCell = findEmptyCellIndex()
+    if (!safeCell) return
+    var elCell = document.querySelector(`.cell-${safeCell[0]}-${safeCell[1]}`)
+    elCell.style.backgroundColor = 'green'
+    setTimeout(function () {
+        elCell.style.backgroundColor = 'black'
+    }, 750)
+    gBoard[safeCell[0]][safeCell[1]].isMarked = false
+    gBoard[safeCell[0]][safeCell[1]].isShown = false
+    safeClickCount--
+    var elH5 = document.querySelector(".clicksLeft span")
+    elH5.innerHTML--
+
+}
+
+function checkDarkMode() {
+    if (!darkMode) {
+        var body = document.querySelector("body")
+        body.style.backgroundColor = "brown"
+        darkMode = true
+    } else{
+        var body = document.querySelector("body")
+        body.style.backgroundColor = "white"
+        darkMode = false
+
+    }
+
+}
 
 
 

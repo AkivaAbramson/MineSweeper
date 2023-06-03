@@ -1,3 +1,9 @@
+body {
+    background-color: #ffffff;
+    /* initial background color */
+}
+
+
 table,
 tr,
 td {
@@ -10,13 +16,23 @@ td {
 
 body {
     text-align: center;
+
 }
 
 .centered-text {
     display: inline-block;
 }
 
+.darkMode {
+    margin-bottom: 50px;
+    display: block;
+    cursor: pointer;
+    margin-left: 100px;
+    background-color: brown;
+    color: #ffffff;
+    
 
+}
 
 table {
     border: 8px solid rgb(190, 18, 18);
@@ -64,21 +80,46 @@ table {
 
 
 .livesLeft {
-    
+
     color: rgb(8, 124, 86);
     text-align: center;
 }
 
 .smileyRestart {
-    margin-left: 346px;
+    text-align: center;
+    margin-left: 325px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     cursor: pointer;
-    font-size: 50px;
+    font-size: 72px;
 }
 
-h1{
+h1 {
     color: aqua;
+
+}
+
+.minesLeft {
+    color: darkblue;
+}
+
+#timer {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.safeClick {
+    cursor: pointer;
+    color: darkolivegreen;
+    background-color: bisque;
+}
+
+.clicksLeft {
+    margin-top: 0%;
+    font-size: 12px;
+    color: darkgoldenrod;
+
 }

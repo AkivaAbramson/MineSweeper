@@ -68,3 +68,27 @@ function findEmptyCell() {
 
     }
 }
+
+function howManyMines(){
+    var howManyMines
+    if (gBoard.length === 4) howManyMines = 2
+    else if (gBoard.length === 8) howManyMines = 14
+    else howManyMines = 32
+    return howManyMines
+}
+
+function findEmptyCellIndex() {
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            if (gBoard[i][j].content !== '*'){
+                if(gBoard[i][j].isShown) continue
+                return [i,j]
+
+            }
+
+                
+        }
+
+    }
+    return false
+}

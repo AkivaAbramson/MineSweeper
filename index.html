@@ -11,11 +11,16 @@
 
 <body onload="onInit(4)">
     <h1>MineSweeper!</h1>
+    <div id="timer">00:00:00</div>
+    <button class="darkMode" onclick="checkDarkMode()">Dark Mode</button>
     <button class="Beginner button" onclick="playAgain(4)">Beginner</button>
     <button class="Medium button" onclick="playAgain(8)">Medium</button>
     <button class="Expert button" onclick="playAgain(12)">Expert</button>
     <button class="smileyRestart" onclick="playAgain(4)">😁</button>
     <h1 class="livesLeft">Lives Left: 3</h1>
+    <h1 class="minesLeft">Mines Left: <span></span></h1>
+    <button class="safeClick" onclick="safeClick()">Safe Click</button>
+    <h5 class="clicksLeft">Clicks left: <span>3</span></h5>
     <h2 class="victory">VICTORY!!</h2>
     <h3 class="lose">you lost!!</h3>
     <table class="board-container"></table>
